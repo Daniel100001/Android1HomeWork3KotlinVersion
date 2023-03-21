@@ -1,5 +1,6 @@
 package com.example.android1homework3kotlinversion
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class TextAdapter : RecyclerView.Adapter<TextAdapter.TextHolder>() {
+
     private var listForText: List<String> = emptyList()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setListForText(listForText: List<String>) {
         this.listForText = listForText
         notifyDataSetChanged()
@@ -20,15 +23,17 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.TextHolder>() {
     }
 
     override fun onBindViewHolder(holder: TextHolder, position: Int) {
-        holder.bind(listForText[position])
+        holder.onBind(listForText[position])
     }
 
-    override fun getItemCount(): Int = listForText.size
+    override fun getItemCount(): Int {
+        return listForText.size
+    }
 
     inner class TextHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textJF: TextView = itemView.findViewById(R.id.text1)
 
-        fun bind(text: String) {
+        fun onBind(text: String) {
             textJF.text = text
         }
     }

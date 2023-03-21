@@ -9,21 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerViewFragment : Fragment() {
+
     private val adapter = TextAdapter()
-    private val listForTextPro: MutableList<String> = ArrayList()
-    private var listPOnText: RecyclerView? = null
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private val listForTextPro = mutableListOf<String>()
+    private lateinit var listPOnText: RecyclerView
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recycler_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listPOnText = view.findViewById(R.id.recyclerviewText)
-
         listForTextPro.add("Почка")
         listForTextPro.add("Данчик")
         listForTextPro.add("Селезенка")
@@ -45,15 +43,12 @@ class RecyclerViewFragment : Fragment() {
         listForTextPro.add("Печень")
         listForTextPro.add("Печень")
         listForTextPro.add("Печень")
-
         initialize()
         adapter.setListForText(listForTextPro)
     }
 
     private fun initialize() {
-        listPOnText?.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = this@RecyclerViewFragment.adapter
-        }
+        listPOnText.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        listPOnText.adapter = adapter
     }
 }
